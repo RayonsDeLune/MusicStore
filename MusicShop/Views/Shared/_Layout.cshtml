@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top navbar-dark bg-dark" style="background-color: #563d7c;">
+        <div class="container">
+            <div class="navbar-header">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        @Html.ActionLink("Music Shop", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    </li>
+                    @*<li class="nav-item">
+                        @Html.ActionLink("Magasin", "Index", "Store", new { area = "" }, new { @class = "navbar-brand" })
+                    </li>*@
+                    
+                    </ul>
+                </div>
+            <div class="navbar-header">
+                <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+                    
+                    @if (Session["UserID"] != null)
+                    {
+                        <li class="nav-item">
+                           <a href="#" class="nav-link navbar-brand"> Bienvenue @Session["UserFirstName"] @Session["UserLastName"] ! </a>
+
+                        </li>
+
+                        
+                        if (bool.Parse(Session["admin"].ToString()))
+                        {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link navbar-brand dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Admin
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                @Html.ActionLink("- Utilisateurs", "Index", "Users", new { area = "" }, new { @class = "navbar-brand dropdown-item " })
+                                @Html.ActionLink("- Albums", "Index", "Albums", new { area = "" }, new { @class = "navbar-brand dropdown-item " })
+                                @Html.ActionLink("- Musiques", "Index", "Musics", new { area = "" }, new { @class = "navbar-brand dropdown-item " })
+                                @Html.ActionLink("- Artistes", "Index", "Artists", new { area = "" }, new { @class = "navbar-brand dropdown-item " })
+                                @Html.ActionLink("- Genres", "Index", "Genres", new { area = "" }, new { @class = "navbar-brand  dropdown-item " })
+                            </div>
+                        </li>
+                        }
+                        <li class="nav-item">
+                            @*@var texte = "test";*@
+                            @Html.ActionLink("Panier ()", "displayCart", "ShoppingCart", new { area = "" }, new { @class = "navbar-brand" })
+                        </li>
+
+                        <li class="nav-item">
+                            @Html.ActionLink("Déconnecter", "LogOut", "Account", new { area = "" }, new { @class = "navbar-brand" })
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            @Html.ActionLink("Nouveau compte", "Index", "Account", new { area = "" }, new { @class = "navbar-brand" })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Login", "LogIn", "Account", new { area = "" }, new { @class = "navbar-brand" })
+                        </li>
+                    }
+                </ul>
+
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>

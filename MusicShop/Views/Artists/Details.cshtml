@@ -1,0 +1,59 @@
+﻿@model MusicShop.Models.Artist
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Artist</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ArtistName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArtistName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(m => m.ListMusic)
+        </dt>
+        <dd>
+            <ul>
+                @foreach (var music in Model.ListMusic)
+                {
+                    <li>
+                        @Html.ActionLink(music.Title, "Edit", "Musics", new { id = music.MusicId }, null)
+                    </li>
+                }
+            </ul>
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(m => m.ListAlbum)
+        </dt>
+        <dd>
+            <ul>
+                @foreach (var album in Model.ListAlbum)
+                {
+                    <li>
+                        @Html.ActionLink(album.Title, "Edit", "Albums", new { id = album.AlbumId }, null)
+                    </li>
+                }
+            </ul>
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ArtistId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

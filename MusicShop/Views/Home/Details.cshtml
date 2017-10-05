@@ -1,0 +1,103 @@
+﻿@model MusicShop.Models.Album
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Album</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt></dt>
+        <dd>
+            <img src="@Model.Cover" />
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cover)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cover)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(m => m.Genre)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Genre.Name)
+            @*@Html.ActionLink(Model.Genre.Name, "Edit", "Genres", new { id = Model.Genre.GenreId }, null)*@
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(m => m.ListArtist)
+        </dt>
+        <dd>
+            <ul>
+                @foreach (var artist in Model.ListArtist)
+                {
+                    <li>
+                        @artist.ArtistName
+                        @*@Html.ActionLink(artist.ArtistName, "Edit", "Artists", new { id = artist.ArtistId }, null)*@
+                    </li>
+                }
+            </ul>
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(m => m.ListMusic)
+        </dt>
+        <dd>
+            <ul>
+                @foreach (var music in Model.ListMusic)
+                {
+                    <li>
+                        @music.Title
+                        @*@Html.ActionLink(music.Title, "Edit", "Musics", new { id = music.MusicId }, null)*@
+                    </li>
+                }
+            </ul>
+        </dd>
+        <dt></dt>
+        <dd>
+            @if (Session["UserID"] != null)
+            {
+                @Html.ActionLink("Ajouter au panier", "AddItem", "ShoppingCart", new { id = Model.AlbumId }, null)
+            }
+        </dd>
+    </dl>
+</div>
+
+
+

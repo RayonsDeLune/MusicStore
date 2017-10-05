@@ -1,0 +1,72 @@
+﻿@*@model IEnumerable<MusicShop.Models.Album>*@
+@model PagedList.IPagedList<MusicShop.Models.Album>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container-fluid alert alert-warning col-lg-2 menugauche">
+    <!-- Menu de gauche-->
+    <ul>
+        <li>
+            @Html.ActionLink("Genres", "Index", "Home")
+            <!--boucles-->
+            <ul>
+                @foreach (var mygenre in ViewBag.ListGenre)
+                {
+                    <li>
+                        @Html.ActionLink((string)mygenre.Name, "Index", "Home", new { idFiltreGenre = mygenre.GenreId }, new { title = "Voir tous les albums " + mygenre.Name })
+                    </li>
+                }
+            </ul>
+        </li>
+        <li>
+            @Html.ActionLink("Artistes", "Index", "Home")
+            <!--boucles-->
+            <ul>
+                @foreach (var artist in ViewBag.ListArtist)
+                {
+                    <li>
+                        @Html.ActionLink((string)artist.ArtistName, "Index", "Home", new { idFiltreArtist = artist.ArtistId }, new { title = "Voir tous les artistes " + artist.ArtistName })
+                    </li>
+                }
+            </ul>
+
+        </li>
+    </ul>
+</div>
+<div class="container-fluid col-lg-10">
+    <h2>Articles</h2>
+    <div class="row">
+        @foreach (var item in Model)
+        {
+
+            <div class="container col-lg-4">
+                <br />
+                <img src="@item.Cover" style="max-length:250px; max-height:250px;" />
+                <br/>
+                @Html.ActionLink(item.Title, "Details", "Home", new { id = item.AlbumId }, new { title = "Détails" })
+                <br/>
+                @Html.DisplayFor(modelItem => item.Price) €
+                <br/>
+
+
+                @if (Session["UserID"] != null)
+                {
+                    @Html.ActionLink("Ajouter au panier", "AddItem", "ShoppingCart", new { id = item.AlbumId }, null)
+                }
+                <br />
+            </div>
+
+        }
+
+    </div>
+    <div id='Paging' style="text-align:center">
+        <br/>
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+    </div>
+
+</div>

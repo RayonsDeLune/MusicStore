@@ -1,0 +1,66 @@
+﻿@model MusicShop.Models.ShoppingCart
+@{
+    ViewBag.Title = "Panier";
+}
+
+<h2>Panier</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            
+        </th>
+        <th>
+            Titre
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ListItemCart[0].Quantite)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ListItemCart[0].UnitPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ListItemCart[0].TotalPrice)
+        </th>
+        
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.ListItemCart )
+    {
+        <tr>
+            <td>
+                <img src="@item.Album.Cover" style="max-length:100px; max-height:100px;" />
+            </td>
+            <td>
+                <!-- titre de l'album -->
+                @item.Album.Title
+            </td>
+            <td>
+                @item.Quantite
+            </td>
+            <td>
+                @item.UnitPrice
+            </td>
+            <td>
+                @item.TotalPrice
+            </td>
+           
+
+            <td>
+               @if (@item.Quantite > 1)
+               {
+                   @Html.ActionLink("Subtract", "Subtract", new { id = item.ItemCartId })   
+               }
+               @Html.ActionLink("Delete", "Delete", new { id = item.ItemCartId })
+            </td>
+        </tr>
+    }
+    <tr>
+        <th colspan="4">Montant Total à Payer</th>
+        <th >@Model.getMontantTotal()</th>
+        <th></th>
+    </tr>
+</table>
+@Html.ActionLink("Payer la commande", "PaymentChoice")
